@@ -64,6 +64,11 @@ class ArtistListView(generics.ListCreateAPIView):
     queryset = models.Artist.objects.all()
     serializer_class = ArtistSerializer
 
+class ArtistView(generics.RetrieveAPIView):
+    queryset = models.Artist.objects.all()
+    lookup_field = 'pk'
+    serializer_class = ArtistSerializer
+
 class SongView(generics.RetrieveAPIView):
     queryset = models.Song.objects.all()
     lookup_field = 'pk'
@@ -101,7 +106,17 @@ class SongCreateView(generics.CreateAPIView):
         return Response(serializer.data)
     
 
-class PlaylistView(generics.ListCreateAPIView):
+class PlaylistView(generics.RetrieveAPIView):
+    queryset = models.Playlist.objects.all()
+    lookup_field = 'pk'
+    serializer_class = PlaylistSerializer
+
+class PlaylistListView(generics.ListCreateAPIView):
+    queryset = models.Playlist.objects.all()
+    serializer_class = PlaylistSerializer
+
+
+class PlaylistCreateView(generics.CreateAPIView):
     queryset = models.Playlist.objects.all()
     serializer_class = PlaylistSerializer
 
