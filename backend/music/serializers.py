@@ -36,7 +36,7 @@ class SongSerializer(serializers.ModelSerializer):
     def get_song_url(self, obj):
         request = self.context.get('request')
         if request:
-            return request.build_absolute_uri(reverse('home'))+"songs/" + f"{obj.artist.artist_id}/{obj.name}.mp3"
+            return str(request.build_absolute_uri(reverse('home'))+"songs/" + f"{obj.artist.artist_id}/{obj.name}.mp3").replace(" ","%20")
         return None
     
     def get_image(self,obj):
