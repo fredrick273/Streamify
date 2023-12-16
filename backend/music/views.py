@@ -155,7 +155,7 @@ class PlaylistCreateView(generics.CreateAPIView):
                     print(f"Error: {e}")
             songs.append(song.pk)
 
-        serializer.save(playlist_id=data['id'],name=data['name'],description=data['description'],songs=songs)
+        serializer.save(playlist_id=data['id'],name=data['name'],description=data['description'],songs=songs,image=data['image_url'])
         
         return Response(serializer.data)
     
