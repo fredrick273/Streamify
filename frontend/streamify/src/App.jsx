@@ -1,10 +1,11 @@
 // src/App.js
 import React,{ useState,useEffect,useRef } from "react";
-import { BrowserRouter as Router, Routes, Route,Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route,Link, } from "react-router-dom";
 import "./App.css";
 
 import Home from "./pages/home";
 import Songs from "./pages/songs";
+import Playlist from "./pages/playlist";
 
 function SideBar() {
   
@@ -105,18 +106,21 @@ function SideBar() {
     const [sliderValue, setSliderValue] = useState(0);
     
     const handleSliderChange = (event) => {
-    const newSliderValue = parseInt(event.target.value, 10);
-    setSliderValue(newSliderValue);
-    const newSongTime = (newSliderValue / 100) * (duration / 1000);
-    setsongtime(newSongTime);
-    audio.current.currentTime = newSongTime;
-  };
+      console.log(parseInt(event.target.value, 10));
+      const newSliderValue = parseInt(event.target.value, 10);
+      setSliderValue(newSliderValue);
+      const newSongTime = (newSliderValue / 100) * (duration / 1000); // Convert duration to seconds
+      setsongtime(newSongTime);
+      audio.current.currentTime = newSongTime;
+    };
+    
+    
     const [songtime,setsongtime] = useState(0);
     const [duration,setduration] = useState(0);
     const [playstate,changeplaystate] = useState(false);
     const audio = useRef(null);
+
     function handleTimeUpdate(){
-      console.log(audio.current.currentTime)
       setSliderValue((audio.current.currentTime / duration) * 100000);
       setsongtime(audio.current.currentTime)
     }
@@ -216,8 +220,14 @@ function App() {
                         <Route
                             exact
                             path="/songs"
-                            element={<Songs />}
+                            element={<Songs selectsong={selectsong} />}
                         ></Route>
+                        <Route
+                            exact
+                            path="/playlist/:id"
+                            element={<Playlist selectsong={selectsong} />}
+                        >
+                        </Route>
           </Routes>
 
     </Router>

@@ -1,7 +1,12 @@
 import React,{ useState,useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function PlaylistMix(){
-
+  let navigate = useNavigate(); 
+  const routeChange = (id) =>{ 
+    let path = `playlist/${id}`; 
+    navigate(path);
+  }
     const [data, setData] = useState(null);
   
     useEffect(() => {
@@ -29,7 +34,7 @@ function PlaylistMix(){
     <div className="group col-span-1 cursor-pointer rounded-md bg-neutral-600 bg-opacity-10 p-3 transition-all duration-300 ease-in-out hover:bg-opacity-20">
   
       {data.slice(0, 5).map(item => (
-        <div key={item.id} className="flex w-full flex-col gap-2">
+        <div key={item.id} onClick={() => routeChange(item.id)} className="flex w-full flex-col gap-2">
           <div className="group relative aspect-square w-full overflow-hidden rounded-xl shadow-lg shadow-neutral-900 transition-all duration-300 ease-in-out">
             <img
               alt="Playlist"
@@ -45,6 +50,7 @@ function PlaylistMix(){
           </div>
           <h1 className="mt-5 truncate text-lg font-bold text-white">{item.name}</h1>
           <p className="mt-2 line-clamp-3 text-sm font-semibold text-gray-400">{item.description}</p>
+          
         </div>
       ))}
     </div>

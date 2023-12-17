@@ -49,6 +49,7 @@ class SongSerializer(serializers.ModelSerializer):
 
 class PlaylistSerializer(serializers.ModelSerializer):
     pic = serializers.SerializerMethodField()
+    duration = serializers.SerializerMethodField()
     class Meta:
         model = Playlist
         fields = '__all__'
@@ -62,3 +63,9 @@ class PlaylistSerializer(serializers.ModelSerializer):
             return playlist_info['images'][0]['url']
         except:
             return "Invalid url"
+        
+    def get_duration(self,obj):
+        duration = 0
+        for i in obj.songs.all():
+            duration += i.duration
+        return duration
