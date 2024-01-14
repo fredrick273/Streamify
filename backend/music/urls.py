@@ -5,7 +5,7 @@ urlpatterns = [
     path('artists/',views.ArtistListView.as_view(),name='artists'),
     path('artists/<int:pk>/',views.ArtistView.as_view(),name='artist'),
 
-    path('songs/',views.SongListView.as_view(),name='songs'),
+    path('songs/',views.SongListView.as_view({'get': 'list'}),name='songs'),
     path('songs/add/',views.SongCreateView.as_view(),name='addsongs'),
     path('songs/<int:pk>/',views.SongView.as_view(),name='song'),
 

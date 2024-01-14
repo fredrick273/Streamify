@@ -12,6 +12,8 @@ from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 from . import models
 from django.http import HttpResponse
+from rest_framework import viewsets
+from rest_framework import filters
 
 load_dotenv()
 
@@ -74,9 +76,11 @@ class SongView(generics.RetrieveAPIView):
     lookup_field = 'pk'
     serializer_class = SongSerializer
 
-class SongListView(generics.ListAPIView):
+class SongListView(viewsets.ModelViewSet):
     queryset = models.Song.objects.all()
     serializer_class = SongSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name', 'artist__name']
 
 class SongCreateView(generics.CreateAPIView):
     queryset = models.Song.objects.all()
@@ -158,6 +162,4 @@ class PlaylistCreateView(generics.CreateAPIView):
         serializer.save(playlist_id=data['id'],name=data['name'],description=data['description'],songs=songs,image=data['image_url'])
         
         return Response(serializer.data)
-    
-
     

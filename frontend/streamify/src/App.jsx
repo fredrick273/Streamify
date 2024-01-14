@@ -6,6 +6,7 @@ import "./App.css";
 import Home from "./pages/home";
 import Songs from "./pages/songs";
 import Playlist from "./pages/playlist";
+import Search from "./pages/search";
 
 function SideBar() {
   
@@ -52,7 +53,7 @@ function SideBar() {
               clip-rule="evenodd"
             ></path>
           </svg>
-          <p>Search</p>
+          <Link to="/search">Search</Link>
         </button>
         </div>
         <div className="mt-5 rounded-t bg-white bg-opacity-10 p-4">
@@ -228,6 +229,11 @@ function App() {
                             element={<Playlist selectsong={selectsong} />}
                         >
                         </Route>
+                        <Route
+                            exact
+                            path="/search"
+                            element={<Search />}
+                        ></Route>
           </Routes>
 
     </Router>
